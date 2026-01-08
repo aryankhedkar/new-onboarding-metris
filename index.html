@@ -1096,8 +1096,21 @@
 
         /* Footer */
         .footer {
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--gray-100);
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(135deg, var(--metris-navy-dark) 0%, #0a0f1a 100%);
+            color: var(--gray-300);
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
         }
 
         .footer-inner {
