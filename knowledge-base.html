@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base | Metris Energy</title>
+    <meta name="description" content="Find answers to common questions about the Metris solar asset management platform. Performance ratios, alerts, data interpretation, and more.">
+    <link rel="icon" type="image/png" href="Logo/Green-Brandmark.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --metris-green: #10b981;
+            --metris-green-dark: #059669;
+            --metris-green-light: #d1fae5;
+            --metris-green-glow: rgba(16, 185, 129, 0.3);
+            --metris-navy: #1e293b;
+            --metris-navy-dark: #0f172a;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-800);
+            line-height: 1.7;
+            background: var(--gray-50);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, .hero-tag, .section-tag {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Navigation - matching main site */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--metris-green);
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--metris-green) 0%, var(--metris-green-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(16, 185, 129, 0.45);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--gray-600);
+        }
+
+        .btn-ghost:hover {
+            color: var(--metris-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+            text-align: center;
+        }
+
+        .hero-inner {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--metris-green-light) 0%, rgba(16, 185, 129, 0.15) 100%);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--metris-green-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--metris-navy);
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+        }
+
+        /* Search Box */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.25rem 1rem 3rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--metris-green);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        /* Category Navigation */
+        .categories {
+            padding: 2rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 70px;
+            z-index: 50;
+        }
+
+        .categories-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 100px;
+            background: var(--white);
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .category-btn:hover {
+            border-color: var(--metris-green);
+            color: var(--metris-green);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--metris-green) 0%, var(--metris-green-dark) 100%);
+            border-color: var(--metris-green);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem 6rem;
+        }
+
+        /* Article Cards */
+        .article-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .article-card:hover {
+            border-color: var(--metris-green);
+            box-shadow: var(--shadow-md);
+        }
+
+        .article-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .article-header-content {
+            flex: 1;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--gray-100);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--metris-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .article-preview {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+        }
+
+        .article-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .article-card.active .article-toggle {
+            background: var(--metris-green);
+            transform: rotate(180deg);
+        }
+
+        .article-toggle svg {
+            width: 16px;
+            height: 16px;
+            color: var(--gray-500);
+            transition: color 0.3s ease;
+        }
+
+        .article-card.active .article-toggle svg {
+            color: white;
+        }
+
+        .article-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .article-card.active .article-content {
+            max-height: 2000px;
+        }
+
+        .article-body {
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .article-body h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--metris-navy);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .article-body h3:first-child {
+            margin-top: 1.5rem;
+        }
+
+        .article-body p {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .article-body ul, .article-body ol {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-body li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            margin: 1.25rem 0;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .callout-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+        }
+
+        .callout-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+
+        .callout-info .callout-icon {
+            color: #3b82f6;
+        }
+
+        .callout-warning {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+        }
+
+        .callout-warning .callout-icon {
+            color: #f59e0b;
+        }
+
+        .callout-success {
+            background: var(--metris-green-light);
+            border: 1px solid #86efac;
+        }
+
+        .callout-success .callout-icon {
+            color: var(--metris-green);
+        }
+
+        .callout p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Screenshot Placeholder */
+        .screenshot {
+            background: var(--gray-100);
+            border: 2px dashed var(--gray-300);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1.25rem 0;
+        }
+
+        .screenshot-label {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Action Box */
+        .action-box {
+            background: linear-gradient(135deg, var(--metris-navy-dark) 0%, var(--metris-navy) 100%);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.25rem 0;
+        }
+
+        .action-box h4 {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-box p {
+            color: var(--gray-300);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            background: linear-gradient(135deg, var(--metris-navy-dark) 0%, var(--metris-navy) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-cta h2 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-cta p {
+            color: var(--gray-300);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-cta .btn-primary {
+            display: inline-block;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem;
+            background: var(--metris-navy-dark);
+            text-align: center;
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
+        }
+
+        .footer p {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .categories {
+                top: 60px;
+            }
+
+            .categories-inner {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 0.5rem;
+            }
+
+            .category-btn {
+                white-space: nowrap;
+            }
+
+            .article-header {
+                padding: 1.25rem;
+            }
+
+            .article-body {
+                padding: 0 1.25rem 1.25rem;
+            }
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .no-results svg {
+            width: 48px;
+            height: 48px;
+            color: var(--gray-300);
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="Logo/Green-Horizontal.png" alt="Metris" style="height: 32px;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Platform</a></li>
+                <li><a href="index.html#solutions">Solutions</a></li>
+                <li><a href="index.html#team">Team</a></li>
+                <li><a href="knowledge-base.html" style="color: var(--metris-green);">Help Center</a></li>
+                <li><a href="https://admin.metrisenergy.com/dashboard" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Sign in</a></li>
+                <li><a href="https://calendly.com/aryankhedkar100/30min" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Book a call</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-tag">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4M12 8h.01"/>
+                </svg>
+                Help Center
+            </div>
+            <h1>How can we help you?</h1>
+            <p>Find answers to common questions about monitoring your solar portfolio, understanding performance metrics, and getting the most out of Metris.</p>
+            
+            <div class="search-container">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search for answers...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="categories-inner">
+            <button class="category-btn active" data-category="all">All Articles</button>
+            <button class="category-btn" data-category="metrics">Metrics & Data</button>
+            <button class="category-btn" data-category="alerts">Alerts & Faults</button>
+            <button class="category-btn" data-category="reports">Reports</button>
+            <button class="category-btn" data-category="getting-started">Getting Started</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Article 1: Availability N/A -->
+        <article class="article-card" data-category="metrics" data-keywords="availability n/a not available december winter irradiance threshold">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Metrics & Data</span>
+                    <h2 class="article-title">Why does site availability show "N/A" for some months?</h2>
+                    <p class="article-preview">Understanding the irradiance threshold and what it means for winter months</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>The short answer</h3>
+                    <p>When you see "N/A" for availability, it means there wasn't enough sunlight during that period to calculate a meaningful availability figure. This typically happens in December and January in the UK when daylight hours are shortest.</p>
+                    
+                    <h3>Why this happens</h3>
+                    <p>Metris only calculates availability when irradiance (sunlight intensity) is above 100 W/m². Below this threshold, solar panels produce negligible power regardless of whether they're working correctly or not. Including these low-light periods would distort your availability figures and make it impossible to distinguish between a system fault and simply not enough sun.</p>
+                    
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p><strong>Think of it this way:</strong> You wouldn't judge a car's reliability by whether it starts at 3am when you're asleep. Similarly, we don't judge solar system availability when there's barely any sun to capture.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Monthly availability view showing N/A values</span>
+                    </div>
+
+                    <h3>What you should do</h3>
+                    <p>Nothing. This is expected behavior and doesn't indicate any problem with your system. When comparing monthly performance, focus on months where availability data is available. For year-over-year comparisons, compare the same months to account for seasonal variation.</p>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>No action required. N/A in winter months is normal and expected.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 2: Performance Ratio -->
+        <article class="article-card" data-category="metrics" data-keywords="performance ratio pr percentage calculation expected actual low high">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Metrics & Data</span>
+                    <h2 class="article-title">Understanding Performance Ratio (PR)</h2>
+                    <p class="article-preview">What PR means, how we calculate it, and what's considered "good"</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>What is Performance Ratio?</h3>
+                    <p>Performance Ratio tells you how efficiently your solar system converts available sunlight into electricity, compared to what it would produce under perfect conditions. It's expressed as a percentage.</p>
+                    
+                    <p>If your PR is 80%, that means your system is capturing 80% of the energy it theoretically could, given the amount of sunlight hitting the panels.</p>
+
+                    <h3>How we calculate it</h3>
+                    <p>The formula is straightforward:</p>
+                    <p><strong>PR = (Actual Energy Output ÷ Expected Energy Output) × 100</strong></p>
+                    
+                    <p>Expected output is calculated using irradiance data (how much sun hit your panels) and your system's rated capacity. We source irradiance data from SolarGIS, which provides satellite-based measurements specific to your site location.</p>
+
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p><strong>Important:</strong> Like availability, we only calculate PR when irradiance is above 100 W/m² to ensure meaningful comparisons.</p>
+                    </div>
+
+                    <h3>What's a "good" PR?</h3>
+                    <ul>
+                        <li><strong>75-85%</strong> - Typical for well-performing commercial rooftop systems in the UK</li>
+                        <li><strong>85%+</strong> - Excellent performance, often seen in newer systems with premium components</li>
+                        <li><strong>Below 70%</strong> - Worth investigating for potential issues</li>
+                    </ul>
+
+                    <div class="callout callout-warning">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <p><strong>Note:</strong> PR naturally varies with seasons. Summer PR is typically lower than winter because panels lose efficiency as they heat up. Don't compare July PR to January PR directly.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Site performance view showing PR trend</span>
+                    </div>
+
+                    <h3>Why PR might look "wrong"</h3>
+                    <p>Common reasons for unexpected PR values:</p>
+                    <ul>
+                        <li><strong>Shading:</strong> Trees, buildings, or equipment casting shadows on panels</li>
+                        <li><strong>Soiling:</strong> Dirty panels reduce output</li>
+                        <li><strong>System design:</strong> The rated capacity in Metris doesn't match what's actually installed</li>
+                        <li><strong>Curtailment:</strong> If your system is being curtailed, actual output is reduced but expected output isn't adjusted (see our article on curtailment)</li>
+                    </ul>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>If PR drops suddenly or is consistently below 70%, raise a ticket with your O&M provider to investigate.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 3: Exclusions -->
+        <article class="article-card" data-category="metrics" data-keywords="exclusions exclude excluded periods downtime maintenance curtailment outage">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Metrics & Data</span>
+                    <h2 class="article-title">What are exclusions and how do they affect my data?</h2>
+                    <p class="article-preview">Understanding when and why certain periods are excluded from calculations</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>What exclusions do</h3>
+                    <p>Exclusions remove specific time periods from performance calculations. When a period is excluded, it's as if that time didn't exist for the purposes of calculating PR, availability, and other metrics.</p>
+
+                    <h3>Why exclusions matter</h3>
+                    <p>Without exclusions, your performance data would be unfairly penalized for things outside your control. If there's a grid outage and your system can't export power, that's not a fault with your solar installation - it shouldn't drag down your PR.</p>
+
+                    <h3>Types of exclusions</h3>
+                    <ul>
+                        <li><strong>Grid outages:</strong> When the DNO takes the grid offline for maintenance</li>
+                        <li><strong>Force majeure:</strong> Extreme weather events, flooding, etc.</li>
+                        <li><strong>Contractual curtailment:</strong> When you're required to limit output under G100 or similar agreements</li>
+                        <li><strong>Planned maintenance:</strong> Scheduled work that requires the system to be offline</li>
+                    </ul>
+
+                    <div class="callout callout-success">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <p><strong>Investor reports:</strong> Exclusions are particularly important for contractual PR calculations. Most PPAs specify which events can be excluded when calculating whether you've met performance guarantees.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Exclusion periods shown in site timeline</span>
+                    </div>
+
+                    <h3>How to view exclusions</h3>
+                    <p>On any site's performance page, excluded periods appear as shaded regions on the timeline. You can click on any exclusion to see the reason and duration.</p>
+
+                    <h3>Adding exclusions</h3>
+                    <p>Exclusions can be added by your account manager or, in some cases, directly through the platform. Contact us if you need to add an exclusion for a documented event.</p>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>If you notice a period that should be excluded (e.g., a documented grid outage), contact your account manager with supporting documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 4: Fault Alerts -->
+        <article class="article-card" data-category="alerts" data-keywords="fault alert notification inverter offline down error warning">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Alerts & Faults</span>
+                    <h2 class="article-title">Understanding fault alerts and what action to take</h2>
+                    <p class="article-preview">How to interpret alerts and prioritize your response</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>How alerts work</h3>
+                    <p>Metris continuously monitors your portfolio and generates alerts when something needs attention. Each alert includes the affected site, the type of issue, and an estimated revenue impact so you can prioritize effectively.</p>
+
+                    <h3>Alert types</h3>
+                    
+                    <p><strong>Inverter Offline</strong></p>
+                    <p>The inverter has stopped communicating or reporting production. This could mean the inverter has faulted, lost connection to the monitoring system, or been manually switched off.</p>
+                    
+                    <p><strong>Underperformance</strong></p>
+                    <p>The site is producing significantly less than expected given current weather conditions. This is calculated by comparing actual output to expected output from similar sites or historical baselines.</p>
+                    
+                    <p><strong>Communication Loss</strong></p>
+                    <p>We can't retrieve data from the monitoring system. This is often a connectivity issue (router, SIM card, internet) rather than an equipment fault.</p>
+
+                    <div class="callout callout-warning">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <p><strong>Revenue impact:</strong> The number shown is an estimate based on typical production and current energy prices. Use it to prioritize which alerts to address first.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Alerts dashboard with revenue impact</span>
+                    </div>
+
+                    <h3>What to do when you get an alert</h3>
+                    <ol>
+                        <li><strong>Check the details:</strong> Click into the alert to see more context, including when it started and affected equipment</li>
+                        <li><strong>Verify it's real:</strong> Some alerts resolve themselves (brief communication glitches, temporary clouds)</li>
+                        <li><strong>Create a ticket:</strong> For genuine issues, create an O&M ticket directly from the alert with one click</li>
+                        <li><strong>Track resolution:</strong> The alert will clear automatically once the issue is resolved</li>
+                    </ol>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>For persistent alerts (lasting more than 24 hours), create an O&M ticket. For high-revenue-impact alerts, escalate immediately to your O&M contractor.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 5: Missing Data -->
+        <article class="article-card" data-category="metrics" data-keywords="missing data gaps no data blank empty holes">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Metrics & Data</span>
+                    <h2 class="article-title">Why is there missing data for my site?</h2>
+                    <p class="article-preview">Common causes of data gaps and how to resolve them</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>Where data comes from</h3>
+                    <p>Metris pulls data from your inverters' monitoring systems via API. Each inverter manufacturer (SolarEdge, Huawei, Solis, etc.) has their own monitoring portal, and we connect to these to retrieve your generation data.</p>
+
+                    <h3>Common causes of missing data</h3>
+                    
+                    <p><strong>Connectivity issues at site</strong></p>
+                    <p>The most common cause. The inverter is working fine but can't upload data because the internet connection is down, the router has failed, or a SIM card has expired.</p>
+                    
+                    <p><strong>Monitoring system outages</strong></p>
+                    <p>Sometimes the manufacturer's portal has issues. When SolarEdge or Huawei have platform problems, it affects data retrieval for all connected sites.</p>
+                    
+                    <p><strong>API credential changes</strong></p>
+                    <p>If passwords or API keys are changed in the manufacturer portal, our connection breaks until credentials are updated.</p>
+                    
+                    <p><strong>New equipment not yet configured</strong></p>
+                    <p>Newly installed inverters need to be added to your Metris account before data appears.</p>
+
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p><strong>Good news:</strong> Data is rarely lost permanently. Most monitoring systems store data locally on the inverter and will backfill once connectivity is restored.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Data gap shown on site timeline</span>
+                    </div>
+
+                    <h3>How to fix it</h3>
+                    <ul>
+                        <li><strong>Check the manufacturer portal:</strong> Can you see data there? If yes, the issue is on our end. If no, the issue is at the site.</li>
+                        <li><strong>Site connectivity:</strong> Ask your O&M provider to check router/modem status and internet connection</li>
+                        <li><strong>SIM cards:</strong> If the site uses cellular, verify the SIM is active and has credit</li>
+                        <li><strong>Contact us:</strong> If data is in the manufacturer portal but not in Metris, let us know and we'll investigate</li>
+                    </ul>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>First check the manufacturer portal. If data is there, contact Metris support. If not, arrange a site visit to check connectivity.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 6: Export Curtailment -->
+        <article class="article-card" data-category="metrics" data-keywords="curtailment g100 export limit dno grid constraint reduced">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Metrics & Data</span>
+                    <h2 class="article-title">How does export curtailment affect my reported numbers?</h2>
+                    <p class="article-preview">Understanding G100 limits and their impact on performance metrics</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>What is export curtailment?</h3>
+                    <p>Some sites have grid connection agreements (like G100) that limit how much power can be exported. When your solar system could produce more than this limit allows, the excess is "curtailed" - the system throttles output to stay within the allowed export level.</p>
+
+                    <h3>How it affects your data</h3>
+                    <p>Curtailment creates a gap between what your system <em>could</em> produce and what it <em>actually</em> exports. This can make performance metrics look worse than they should:</p>
+                    <ul>
+                        <li><strong>PR looks low:</strong> Because actual output is reduced, but expected output (based on irradiance) isn't</li>
+                        <li><strong>Generation vs export mismatch:</strong> The inverter reports more generation than the meter shows exported</li>
+                    </ul>
+
+                    <div class="callout callout-warning">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <p><strong>Important:</strong> If your site has a G100 agreement, make sure your Metris account manager knows the export limit. This helps us provide more accurate analysis.</p>
+                    </div>
+
+                    <h3>How we handle curtailment</h3>
+                    <p>For sites with known export limits, we can:</p>
+                    <ul>
+                        <li>Flag when curtailment is likely occurring</li>
+                        <li>Calculate "adjusted PR" that accounts for the export limit</li>
+                        <li>Show estimated lost revenue from curtailment</li>
+                    </ul>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Curtailment indicator on site view</span>
+                    </div>
+
+                    <h3>Spotting curtailment in your data</h3>
+                    <p>Signs that curtailment is happening:</p>
+                    <ul>
+                        <li>Export flatlines at a consistent level during peak sun hours</li>
+                        <li>Generation exceeds export (if you have both data sources)</li>
+                        <li>PR drops significantly on the sunniest days</li>
+                    </ul>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>If your site has an export limit that isn't reflected in Metris, contact your account manager to have it configured. This will improve the accuracy of your performance reporting.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 7: Monthly Reports -->
+        <article class="article-card" data-category="reports" data-keywords="monthly report investor portfolio summary pdf export download">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Reports</span>
+                    <h2 class="article-title">How to read your monthly performance report</h2>
+                    <p class="article-preview">A guide to understanding each section of your investor report</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>Report overview</h3>
+                    <p>Your monthly report provides a comprehensive view of portfolio performance, designed to be shared with investors and stakeholders. Here's what each section means.</p>
+
+                    <h3>Executive summary</h3>
+                    <p>The top-level numbers that matter most:</p>
+                    <ul>
+                        <li><strong>Total generation:</strong> How much energy your portfolio produced this month (kWh or MWh)</li>
+                        <li><strong>Portfolio PR:</strong> Weighted average Performance Ratio across all sites</li>
+                        <li><strong>Availability:</strong> What percentage of time your systems were operational</li>
+                        <li><strong>Revenue:</strong> Estimated earnings based on generation and applicable rates</li>
+                    </ul>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Report executive summary section</span>
+                    </div>
+
+                    <h3>Site-by-site breakdown</h3>
+                    <p>Each site gets its own row showing:</p>
+                    <ul>
+                        <li>Generation actual vs expected</li>
+                        <li>PR for the month</li>
+                        <li>Availability percentage</li>
+                        <li>Any active alerts or issues</li>
+                    </ul>
+
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p><strong>Tip:</strong> Sites are sorted by performance deviation so underperformers appear first. This helps you quickly identify where to focus attention.</p>
+                    </div>
+
+                    <h3>Trend analysis</h3>
+                    <p>Charts showing performance over time, including:</p>
+                    <ul>
+                        <li>Month-over-month generation comparison</li>
+                        <li>PR trend with seasonal context</li>
+                        <li>Year-to-date performance vs targets</li>
+                    </ul>
+
+                    <h3>Incident log</h3>
+                    <p>A summary of all alerts, tickets, and maintenance activities during the month. This section provides audit trail documentation that investors often require.</p>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>Review your report within the first week of each month. Flag any anomalies to your account manager before sharing with investors.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 8: Generation vs Export -->
+        <article class="article-card" data-category="metrics" data-keywords="generation export difference mismatch discrepancy meter inverter consumption">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Metrics & Data</span>
+                    <h2 class="article-title">Why don't my generation and export figures match?</h2>
+                    <p class="article-preview">Understanding the difference between what's produced and what's exported</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>The basics</h3>
+                    <p><strong>Generation</strong> is the total electricity your solar panels produce. <strong>Export</strong> is the electricity that flows back to the grid. These are measured at different points and often don't match.</p>
+
+                    <h3>Why they differ</h3>
+                    
+                    <p><strong>On-site consumption</strong></p>
+                    <p>If the building uses some of the solar electricity directly, that portion is consumed on-site and never reaches the export meter. Generation will be higher than export.</p>
+                    
+                    <p><strong>System losses</strong></p>
+                    <p>A small amount of energy is lost in cables, transformers, and other equipment between the inverter (where generation is measured) and the export meter. Typically 1-3%.</p>
+                    
+                    <p><strong>Curtailment</strong></p>
+                    <p>If the system is curtailed, generation is throttled to meet export limits. See our article on curtailment for details.</p>
+                    
+                    <p><strong>Meter vs inverter accuracy</strong></p>
+                    <p>Inverters and meters have different accuracy standards. Fiscal meters (used for billing) are typically more accurate than inverter readings.</p>
+
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p><strong>Rule of thumb:</strong> Export being 1-5% lower than generation is normal. Larger discrepancies warrant investigation.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Generation vs export comparison chart</span>
+                    </div>
+
+                    <h3>Which number should I use?</h3>
+                    <ul>
+                        <li><strong>For billing/revenue:</strong> Always use export meter data - this is what you get paid for</li>
+                        <li><strong>For system health:</strong> Generation data shows true inverter output, useful for diagnosing equipment issues</li>
+                        <li><strong>For PR calculations:</strong> Depends on your contract - check what's specified in your PPA</li>
+                    </ul>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>If export is more than 5% below generation consistently, investigate potential metering issues or excessive system losses.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 9: Getting Started -->
+        <article class="article-card" data-category="getting-started" data-keywords="getting started onboarding new setup begin first login">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Getting Started</span>
+                    <h2 class="article-title">Getting started with Metris</h2>
+                    <p class="article-preview">Your first steps after logging in for the first time</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>Welcome to Metris</h3>
+                    <p>This guide walks you through the key features you'll use day-to-day. By the end, you'll know how to monitor your portfolio, understand alerts, and generate reports.</p>
+
+                    <h3>Step 1: Your portfolio dashboard</h3>
+                    <p>After logging in, you'll land on your portfolio dashboard. This shows all your sites at a glance with their current status. Green means healthy, amber means attention needed, red means there's an active issue.</p>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Portfolio dashboard overview</span>
+                    </div>
+
+                    <h3>Step 2: Understanding a site view</h3>
+                    <p>Click any site to see its detailed view:</p>
+                    <ul>
+                        <li><strong>Performance card:</strong> Current PR, generation, and revenue</li>
+                        <li><strong>Timeline:</strong> Historical performance with interactive charts</li>
+                        <li><strong>Equipment:</strong> All inverters and meters at the site</li>
+                        <li><strong>Alerts:</strong> Any active or recent issues</li>
+                    </ul>
+
+                    <h3>Step 3: Checking alerts</h3>
+                    <p>The Alerts tab shows issues across your portfolio, sorted by revenue impact. Each alert tells you what's wrong, where, and how much it's costing you.</p>
+
+                    <div class="callout callout-success">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <p><strong>Pro tip:</strong> Set up email notifications for high-priority alerts so you never miss critical issues.</p>
+                    </div>
+
+                    <h3>Step 4: Creating tickets</h3>
+                    <p>When you find an issue that needs O&M attention:</p>
+                    <ol>
+                        <li>Click "Create Ticket" from any alert or site view</li>
+                        <li>Add details about the issue</li>
+                        <li>Assign to your O&M contractor</li>
+                        <li>Track progress in the Tickets tab</li>
+                    </ol>
+
+                    <h3>Step 5: Running reports</h3>
+                    <p>Go to Reports to generate performance summaries. You can create one-off reports or schedule monthly reports to be sent automatically to your stakeholders.</p>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>Spend 15 minutes exploring the dashboard. Click into a few sites to get familiar with the layout. Questions? Your account manager is here to help.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 10: Meter Data Flow -->
+        <article class="article-card" data-category="getting-started" data-keywords="meter data flow integration api connection how works sync">
+            <div class="article-header" onclick="toggleArticle(this)">
+                <div class="article-header-content">
+                    <span class="article-category">Getting Started</span>
+                    <h2 class="article-title">How meter data flows into Metris</h2>
+                    <p class="article-preview">Understanding where your data comes from and how often it updates</p>
+                </div>
+                <div class="article-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="article-content">
+                <div class="article-body">
+                    <h3>Data sources</h3>
+                    <p>Metris aggregates data from multiple sources to give you a complete picture:</p>
+
+                    <p><strong>Inverter monitoring systems</strong></p>
+                    <p>We connect to manufacturer portals (SolarEdge, Huawei, Solis, Enphase, etc.) via API to retrieve generation data. This typically updates every 15 minutes.</p>
+
+                    <p><strong>Export meters</strong></p>
+                    <p>For sites with half-hourly meters, we pull data from your supplier or metering agent (like Stark). This is the billing-grade data used for revenue calculations.</p>
+
+                    <p><strong>Weather data</strong></p>
+                    <p>We source irradiance data from SolarGIS, a satellite-based service that provides solar radiation measurements specific to your site's location. This enables accurate expected output calculations.</p>
+
+                    <div class="screenshot">
+                        <span class="screenshot-label">📷 Screenshot: Data flow diagram</span>
+                    </div>
+
+                    <h3>Update frequency</h3>
+                    <ul>
+                        <li><strong>Inverter data:</strong> Every 15-60 minutes, depending on manufacturer</li>
+                        <li><strong>Meter data:</strong> Daily (half-hourly data arrives next day)</li>
+                        <li><strong>Weather data:</strong> Hourly</li>
+                        <li><strong>Alerts:</strong> Checked continuously, triggered within minutes of an issue</li>
+                    </ul>
+
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p><strong>Note:</strong> There's always a small delay between real-time events and data appearing in Metris. If an inverter goes offline at 2pm, you might not see it reflected until 2:15-2:30pm.</p>
+                    </div>
+
+                    <h3>Adding new data sources</h3>
+                    <p>To connect a new site or data source:</p>
+                    <ol>
+                        <li>Ensure the inverter monitoring is set up and reporting to the manufacturer portal</li>
+                        <li>Provide your Metris account manager with API credentials or portal access</li>
+                        <li>We configure the connection and verify data is flowing</li>
+                        <li>Historical data is backfilled where available</li>
+                    </ol>
+
+                    <h3>Data quality checks</h3>
+                    <p>Metris automatically flags potential data quality issues:</p>
+                    <ul>
+                        <li>Missing readings</li>
+                        <li>Values outside expected ranges</li>
+                        <li>Mismatches between generation and export</li>
+                        <li>Timestamp inconsistencies</li>
+                    </ul>
+
+                    <div class="action-box">
+                        <h4>✓ Action</h4>
+                        <p>If you're adding new sites, ensure monitoring is fully operational before requesting Metris integration. This speeds up onboarding significantly.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- No Results Message -->
+        <div class="no-results hidden" id="noResults">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <h3>No articles found</h3>
+            <p>Try different keywords or browse by category above.</p>
+        </div>
+
+    </main>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta">
+        <div class="footer-cta-inner">
+            <h2>Still have questions?</h2>
+            <p>Can't find what you're looking for? Our team is here to help.</p>
+            <a href="mailto:support@metrisenergy.com" class="btn btn-primary">Contact Support</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 Metris Energy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle article expansion
+        function toggleArticle(header) {
+            const card = header.closest('.article-card');
+            const wasActive = card.classList.contains('active');
+            
+            // Close all articles
+            document.querySelectorAll('.article-card').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            // Open clicked if it wasn't already open
+            if (!wasActive) {
+                card.classList.add('active');
+                // Smooth scroll to article
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        // Category filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const articles = document.querySelectorAll('.article-card');
+        const noResults = document.getElementById('noResults');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                let visibleCount = 0;
+                
+                articles.forEach(article => {
+                    if (category === 'all' || article.dataset.category === category) {
+                        article.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        article.classList.add('hidden');
+                    }
+                });
+                
+                noResults.classList.toggle('hidden', visibleCount > 0);
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            // Reset category filter
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-category="all"]').classList.add('active');
+            
+            let visibleCount = 0;
+            
+            articles.forEach(article => {
+                const title = article.querySelector('.article-title').textContent.toLowerCase();
+                const preview = article.querySelector('.article-preview').textContent.toLowerCase();
+                const keywords = article.dataset.keywords.toLowerCase();
+                const body = article.querySelector('.article-body').textContent.toLowerCase();
+                
+                const matches = !query || 
+                    title.includes(query) || 
+                    preview.includes(query) || 
+                    keywords.includes(query) ||
+                    body.includes(query);
+                
+                article.classList.toggle('hidden', !matches);
+                if (matches) visibleCount++;
+            });
+            
+            noResults.classList.toggle('hidden', visibleCount > 0);
+        });
+
+        // Close articles when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.article-card')) {
+                // Optionally close all articles when clicking outside
+                // document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>
+
