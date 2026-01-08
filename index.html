@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metris | Solar Asset Management Platform</title>
+    <link rel="icon" type="image/png" href="Logo/Green-Brandmark.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -181,16 +182,11 @@
             transition: transform 0.3s ease;
         }
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
         .logo img {
-            transition: transform 0.3s ease, filter 0.3s ease;
+            transition: filter 0.3s ease;
         }
 
         .logo:hover img {
-            transform: scale(1.1) rotate(2deg);
             filter: brightness(1.1);
         }
 
@@ -291,7 +287,7 @@
         }
 
         .btn:active {
-            transform: scale(0.95);
+            opacity: 0.9;
         }
 
         .btn-ghost {
@@ -394,23 +390,12 @@
             border-radius: 12px;
             position: relative;
             overflow: hidden;
-            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-            transition: transform 0.5s ease;
-        }
-
-        .hero-image:hover {
-            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
         }
 
         .hero-image img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .hero-image:hover img {
-            transform: scale(1.02);
         }
 
         /* Logos */
@@ -557,7 +542,6 @@
 
         .feature-list li:hover .check {
             background: var(--metris-green);
-            transform: scale(1.1);
         }
 
         .feature-list li:hover .check svg {
@@ -605,11 +589,6 @@
         .feature-image img {
             width: 100%;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .feature-image:hover img {
-            transform: scale(1.03);
         }
 
         /* AI Section */
@@ -683,11 +662,8 @@
         }
 
         .ai-card-image img {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .ai-card:hover .ai-card-image img {
-            transform: scale(1.03);
+            width: 100%;
+            display: block;
         }
 
         .ai-card-content {
@@ -796,7 +772,7 @@
         }
 
         .solution-card:hover .solution-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: rotate(5deg);
             background: var(--metris-green);
         }
 
@@ -932,7 +908,6 @@
 
         .team-card:hover .team-avatar {
             border-color: var(--metris-green);
-            transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(16, 185, 129, 0.2);
         }
 
@@ -940,11 +915,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .team-card:hover .team-avatar img {
-            transform: scale(1.05);
         }
 
         .team-name {
@@ -1478,7 +1448,7 @@
                     heroContent.style.opacity = 1 - (scrolled / 500);
                 }
                 if (heroImage) {
-                    heroImage.style.transform = `translateY(${scrolled * 0.2}px) scale(${1 - scrolled * 0.0005})`;
+                    heroImage.style.transform = `translateY(${scrolled * 0.2}px)`;
                 }
             }
         });
