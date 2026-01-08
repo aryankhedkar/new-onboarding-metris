@@ -1036,6 +1036,177 @@
             line-height: 1.6;
         }
 
+        /* Mission & Values */
+        .mission-values-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, var(--metris-navy-dark) 0%, var(--metris-navy) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-values-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .mission-values-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-values-section .section-header {
+            color: var(--white);
+            margin-bottom: 5rem;
+        }
+
+        .mission-values-section .section-header h2 {
+            color: var(--white);
+        }
+
+        .mission-values-section .section-header p {
+            color: var(--gray-300);
+        }
+
+        .mission-box {
+            background: linear-gradient(135deg, var(--metris-green) 0%, var(--metris-green-dark) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 5rem;
+            box-shadow: var(--shadow-2xl), 0 0 0 1px rgba(16, 185, 129, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .mission-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .mission-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--white);
+        }
+
+        .mission-text {
+            flex: 1;
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--metris-green);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.2) 100%);
+            border: 2px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .value-card:hover .value-number {
+            background: linear-gradient(135deg, var(--metris-green) 0%, var(--metris-green-dark) 100%);
+            border-color: var(--metris-green);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .value-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.01em;
+        }
+
+        .value-description {
+            font-size: 0.95rem;
+            color: var(--gray-300);
+            line-height: 1.7;
+            margin-top: 0.75rem;
+        }
+
         /* CTA */
         .cta-section {
             padding: 8rem 2rem;
@@ -1155,6 +1326,11 @@
             .ai-grid, .solutions-grid { grid-template-columns: 1fr; }
             .stats-inner { grid-template-columns: repeat(2, 1fr); }
             .team-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+            .values-grid { grid-template-columns: 1fr; }
+            .mission-box {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         @media (max-width: 600px) {
@@ -1162,6 +1338,12 @@
             .stats-inner { grid-template-columns: 1fr; }
             .team-grid { grid-template-columns: 1fr; }
             .team-avatar { width: 120px; height: 120px; }
+            .mission-box {
+                padding: 2rem;
+            }
+            .mission-text {
+                font-size: 1.1rem;
+            }
             .footer-inner {
                 flex-direction: column;
                 gap: 1.5rem;
@@ -1511,6 +1693,70 @@
         </div>
     </section>
 
+    <section class="mission-values-section" id="mission">
+        <div class="mission-values-inner">
+            <div class="section-header">
+                <h2>Our Mission & Values</h2>
+                <p>What drives us every day at Metris</p>
+            </div>
+
+            <div class="mission-box animate-on-scroll">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21h6M12 3a6 6 0 0 0-6 6c0 4.314 4.03 7.931 6 9.5 1.97-1.569 6-5.186 6-9.5a6 6 0 0 0-6-6z"/>
+                    </svg>
+                </div>
+                <p class="mission-text">Our mission is 10x productivity in distributed energy management.</p>
+            </div>
+
+            <div class="section-header">
+                <h2>Metris Values</h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-header">
+                        <div class="value-number">1</div>
+                        <h3 class="value-title">Raise the Bar</h3>
+                    </div>
+                    <p class="value-description">We always believe we can do better. We push others and help them to do better too.</p>
+                </div>
+
+                <div class="value-card animate-on-scroll">
+                    <div class="value-header">
+                        <div class="value-number">2</div>
+                        <h3 class="value-title">Self-aware</h3>
+                    </div>
+                    <p class="value-description">We're aware of our strengths and weaknesses, how they impact our work and other people, and we're always seeking feedback on both.</p>
+                </div>
+
+                <div class="value-card animate-on-scroll">
+                    <div class="value-header">
+                        <div class="value-number">3</div>
+                        <h3 class="value-title">Work at pace</h3>
+                    </div>
+                    <p class="value-description">We bias to action. Scrappy is in our DNA. We produce high quality output that doesn't compromise pace.</p>
+                </div>
+
+                <div class="value-card animate-on-scroll">
+                    <div class="value-header">
+                        <div class="value-number">4</div>
+                        <h3 class="value-title">Own outcomes</h3>
+                    </div>
+                    <p class="value-description">We prioritise the benefit of the team over personal gain. We are accountable for outcomes, we deliver on commitments that we make and we don't give up.</p>
+                </div>
+
+                <div class="value-card animate-on-scroll">
+                    <div class="value-header">
+                        <div class="value-number">5</div>
+                        <h3 class="value-title">It's awesome to be here</h3>
+                    </div>
+                    <p class="value-description">We want to be here, we feel lucky to be here, and we show this through positive energy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="cta-section" id="cta">
         <div class="cta-inner">
             <h2>Ready to see Metris in action?</h2>
@@ -1578,7 +1824,7 @@
         }, observerOptions);
 
         // Add animate-on-scroll class to elements
-        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .hero-content, .hero-image, .team-card');
+        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .hero-content, .hero-image, .team-card, .mission-box, .value-card');
         animateElements.forEach((el, index) => {
             el.classList.add('animate-on-scroll');
             el.style.transitionDelay = `${index * 0.1}s`;
