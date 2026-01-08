@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" href="Logo/Green-Brandmark.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --metris-green: #10b981;
@@ -51,6 +51,99 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Premium Typography */
+        h1, h2, h3, .hero-tag, .section-tag {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--metris-navy-dark);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2rem;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-logo {
+            width: 80px;
+            height: 80px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .preloader-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .preloader-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--metris-green), var(--metris-green-dark));
+            border-radius: 10px;
+            animation: loading 1.5s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Cursor Glow */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .cursor-glow.active {
+            opacity: 1;
+        }
+
+        /* Grain Texture Overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .grain-overlay.hidden {
+            display: none;
         }
 
         /* Scroll Progress Indicator */
@@ -580,16 +673,41 @@
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
-            line-height: 1.1;
+            line-height: 1.05;
             color: var(--metris-navy);
             margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
-            background: linear-gradient(135deg, var(--metris-navy) 0%, var(--metris-navy-dark) 100%);
+            letter-spacing: -0.04em;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--metris-green) 0%, #06b6d4 50%, var(--metris-green-dark) 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero h1 .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.9em;
+            background: var(--metris-green);
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .hero p {
@@ -628,117 +746,83 @@
 
         /* Logos */
         .logos-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 50%, var(--gray-50) 100%);
+            padding: 5rem 0;
+            background: var(--metris-navy-dark);
             position: relative;
             overflow: hidden;
         }
 
-        .logos-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
-        }
-
-        .logos-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
-        }
-
         .logos-inner {
-            max-width: 1200px;
-            margin: 0 auto;
             text-align: center;
         }
 
         .logos-label {
-            font-size: 1rem;
-            color: var(--gray-600);
+            font-size: 0.9rem;
+            color: var(--gray-400);
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             margin-bottom: 3rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 1.5rem;
+            font-weight: 600;
+            display: block;
         }
 
-        .logos-label::before,
-        .logos-label::after {
-            content: '';
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--metris-green));
-        }
-
-        .logos-label::after {
-            background: linear-gradient(90deg, var(--metris-green), transparent);
-        }
-
-        .logos-grid {
+        .logos-marquee {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .logos-track {
+            display: flex;
+            gap: 4rem;
+            animation: marquee 25s linear infinite;
+            padding: 0 2rem;
+        }
+
+        .logos-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .logo-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem 2rem;
-            background: var(--white);
+            padding: 1.25rem 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
             border-radius: 16px;
-            border: 1px solid var(--gray-200);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 220px;
-            height: 100px;
+            min-width: 200px;
+            height: 90px;
+            flex-shrink: 0;
         }
 
         .logo-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border-color: var(--metris-green);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .logo-item img {
-            max-height: 55px;
-            max-width: 170px;
+            max-height: 50px;
+            max-width: 160px;
             object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
             transition: all 0.4s ease;
         }
 
         .logo-item:hover img {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 768px) {
-            .logos-section {
-                padding: 4rem 1.5rem;
-            }
-            .logos-grid {
-                gap: 1.5rem;
-            }
-            .logo-item {
-                min-width: 160px;
-                height: 80px;
-                padding: 1rem 1.5rem;
-            }
-            .logo-item img {
-                max-height: 45px;
-                max-width: 140px;
-            }
+            opacity: 1;
+            filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
         }
 
         /* Features */
@@ -1025,43 +1109,157 @@
         /* Stats */
         .stats-section {
             padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
-            border-top: 1px solid rgba(226, 232, 240, 0.5);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            background: linear-gradient(135deg, var(--metris-navy-dark) 0%, var(--metris-navy) 100%);
             position: relative;
+            overflow: hidden;
         }
 
         .stats-section::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 70%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
             pointer-events: none;
         }
 
         .stats-inner {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
+            gap: 4rem;
             text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+            border-color: var(--metris-green);
         }
 
         .stat-number {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 800;
-            background: linear-gradient(135deg, var(--metris-green) 0%, var(--metris-green-dark) 100%);
+            background: linear-gradient(135deg, var(--metris-green) 0%, #06b6d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.5rem;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.04em;
+            line-height: 1;
         }
 
         .stat-label {
+            font-size: 1rem;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 8rem 2rem;
+            background: var(--gray-50);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 6rem;
+            font-family: Georgia, serif;
+            color: var(--metris-green-light);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--metris-green-light);
+        }
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--metris-green) 0%, var(--metris-green-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--metris-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
             font-size: 0.85rem;
             color: var(--gray-500);
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Solutions */
@@ -1723,6 +1921,20 @@
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <img src="Logo/Green-Brandmark.png" alt="Metris" class="preloader-logo">
+        <div class="preloader-bar">
+            <div class="preloader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+
     <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1772,11 +1984,11 @@
         <div class="blob blob-3"></div>
         <div class="hero-inner">
             <div class="hero-content">
-                <div class="hero-tag">Solar asset management</div>
-                <h1>Monitor and manage your solar portfolio in one place</h1>
+                <div class="hero-tag">☀️ Solar asset management</div>
+                <h1>Monitor and manage your <span class="gradient-text">solar portfolio</span> in one place</h1>
                 <p>Metris pulls data from all your inverters, meters, and monitoring systems into a single dashboard. See what's working, catch what isn't, and generate the reports your investors need.</p>
                 <div class="hero-buttons">
-                    <a href="https://calendly.com/aryankhedkar100/30min" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Book a call</a>
+                    <a href="https://calendly.com/aryankhedkar100/30min" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Book a call →</a>
                     <a href="#features" class="btn btn-outline">See how it works</a>
                 </div>
             </div>
@@ -1788,19 +2000,34 @@
 
     <section class="logos-section">
         <div class="logos-inner">
-            <p class="logos-label">Backed by</p>
-            <div class="logos-grid">
-                <div class="logo-item">
-                    <img src="Images/Octopus Ventures.png" alt="Octopus Ventures">
-                </div>
-                <div class="logo-item">
-                    <img src="Images/Entrepreneurs First.png" alt="Entrepreneur First">
-                </div>
-                <div class="logo-item">
-                    <img src="Images/Tech Nation.png" alt="Tech Nation">
-                </div>
-                <div class="logo-item">
-                    <img src="Images/AENU.png" alt="AENU">
+            <p class="logos-label">Backed by world-class investors</p>
+            <div class="logos-marquee">
+                <div class="logos-track">
+                    <div class="logo-item">
+                        <img src="Images/Octopus Ventures.png" alt="Octopus Ventures">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Images/Entrepreneurs First.png" alt="Entrepreneur First">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Images/Tech Nation.png" alt="Tech Nation">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Images/AENU.png" alt="AENU">
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="logo-item">
+                        <img src="Images/Octopus Ventures.png" alt="Octopus Ventures">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Images/Entrepreneurs First.png" alt="Entrepreneur First">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Images/Tech Nation.png" alt="Tech Nation">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Images/AENU.png" alt="AENU">
+                    </div>
                 </div>
             </div>
         </div>
@@ -1943,13 +2170,56 @@
 
     <section class="stats-section">
         <div class="stats-inner">
-            <div class="stat-item">
+            <div class="stat-item animate-on-scroll">
                 <div class="stat-number">5000+</div>
-                <div class="stat-label">Sites live</div>
+                <div class="stat-label">Sites live worldwide</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-on-scroll">
                 <div class="stat-number">70+ MW</div>
-                <div class="stat-label">Assets managed</div>
+                <div class="stat-label">Assets under management</div>
+            </div>
+            </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="testimonials-inner">
+            <div class="section-header" style="text-align: center;">
+                <p class="section-tag">Testimonials</p>
+                <h2>Loved by asset managers worldwide</h2>
+                <p>See what our customers have to say about Metris</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card animate-on-scroll">
+                    <p class="testimonial-content">Metris has completely transformed how we manage our solar portfolio. What used to take hours now takes minutes. The AI alerts catch issues before they become costly problems.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JM</div>
+                        <div class="testimonial-info">
+                            <h4>James Mitchell</h4>
+                            <p>Portfolio Manager, SolarFund Capital</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card animate-on-scroll">
+                    <p class="testimonial-content">The reporting features alone save us 20+ hours per month. Our investors love the professional reports, and we love not having to compile them manually anymore.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SK</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Kim</h4>
+                            <p>Operations Director, GreenGrid Energy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card animate-on-scroll">
+                    <p class="testimonial-content">Finally, a platform that understands what asset managers actually need. The integration with all our monitoring systems was seamless, and the support team is exceptional.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RP</div>
+                        <div class="testimonial-info">
+                            <h4>Robert Patel</h4>
+                            <p>CEO, Horizon Solar Management</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2294,6 +2564,39 @@
     </footer>
 
     <script>
+        // Preloader
+        const preloader = document.getElementById('preloader');
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1800);
+        });
+
+        // Cursor Glow Effect
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorGlow.classList.add('active');
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursorGlow.classList.remove('active');
+        });
+
+        // Smooth cursor glow animation
+        function animateCursor() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
         // Set image sources
         document.getElementById('img-hero').src = 'Images/home page.png';
         document.getElementById('img-alerts').src = 'Images/alerts.png';
@@ -2335,7 +2638,7 @@
         }, observerOptions);
 
         // Add animate-on-scroll class to elements (excluding hero which should be visible immediately)
-        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .team-card, .mission-box, .value-card');
+        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .team-card, .mission-box, .value-card, .testimonial-card, .stat-item');
         animateElements.forEach((el, index) => {
             el.classList.add('animate-on-scroll');
             // Reduce delay significantly
