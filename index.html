@@ -746,19 +746,21 @@
 
         /* Logos */
         .logos-section {
-            padding: 5rem 0;
-            background: var(--metris-navy-dark);
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 50%, var(--gray-50) 100%);
             position: relative;
             overflow: hidden;
         }
 
         .logos-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
         }
 
         .logos-label {
             font-size: 0.9rem;
-            color: var(--gray-400);
+            color: var(--gray-500);
             text-transform: uppercase;
             letter-spacing: 0.25em;
             margin-bottom: 3rem;
@@ -769,15 +771,15 @@
         .logos-marquee {
             display: flex;
             overflow: hidden;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
 
         .logos-track {
             display: flex;
-            gap: 4rem;
-            animation: marquee 25s linear infinite;
-            padding: 0 2rem;
+            gap: 3rem;
+            animation: marquee 30s linear infinite;
+            padding: 0 1.5rem;
         }
 
         .logos-track:hover {
@@ -793,36 +795,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.25rem 2.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+            padding: 1.5rem 2.5rem;
+            background: var(--white);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 200px;
-            height: 90px;
+            min-width: 220px;
+            height: 100px;
             flex-shrink: 0;
         }
 
         .logo-item:hover {
-            background: rgba(255, 255, 255, 0.08);
             border-color: var(--metris-green);
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
         }
 
         .logo-item img {
             max-height: 50px;
             max-width: 160px;
             object-fit: contain;
-            filter: brightness(0) invert(1);
-            opacity: 0.8;
             transition: all 0.4s ease;
         }
 
         .logo-item:hover img {
-            opacity: 1;
-            filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            transform: scale(1.05);
         }
 
         /* Features */
