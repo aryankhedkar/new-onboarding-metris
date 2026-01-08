@@ -140,13 +140,19 @@
 
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
 
         .animate-on-scroll.animated {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Make hero section visible immediately */
+        .hero-content, .hero-image {
+            opacity: 1 !important;
+            transform: none !important;
         }
 
         .stagger-1 { animation-delay: 0.1s; }
@@ -1227,36 +1233,27 @@
         }
 
         .cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
             position: relative;
             z-index: 1;
         }
 
         .cta-inner h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
             color: var(--white);
-        }
-
-        .cta-inner p {
-            color: var(--gray-300);
-        }
-
-        .cta-inner {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .cta-inner h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--metris-navy);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.025em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .cta-inner p {
-            font-size: 1rem;
-            color: var(--gray-500);
-            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--gray-200);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
 
         .cta-buttons {
@@ -1808,10 +1805,10 @@
             lastScroll = currentScroll;
         });
 
-        // Intersection Observer for scroll animations
+        // Intersection Observer for scroll animations - trigger much earlier
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.01,
+            rootMargin: '0px 0px 300px 0px' // Trigger 300px before element enters viewport
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1823,11 +1820,12 @@
             });
         }, observerOptions);
 
-        // Add animate-on-scroll class to elements
-        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .hero-content, .hero-image, .team-card, .mission-box, .value-card');
+        // Add animate-on-scroll class to elements (excluding hero which should be visible immediately)
+        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .team-card, .mission-box, .value-card');
         animateElements.forEach((el, index) => {
             el.classList.add('animate-on-scroll');
-            el.style.transitionDelay = `${index * 0.1}s`;
+            // Reduce delay significantly
+            el.style.transitionDelay = `${Math.min(index * 0.05, 0.3)}s`;
             observer.observe(el);
         });
 
@@ -1878,12 +1876,12 @@
                         const fullSuffix = suffix + (unit ? ' ' + unit : '');
                         
                         stat.textContent = '0' + fullSuffix;
-                        animateValue(stat, 0, number, 2000, fullSuffix);
+                        animateValue(stat, 0, number, 1500, fullSuffix); // Faster animation
                     });
                     statsObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.1, rootMargin: '200px 0px' }); // Trigger earlier
 
         const statsSection = document.querySelector('.stats-section');
         if (statsSection) {
@@ -1926,7 +1924,7 @@
                     listObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.1, rootMargin: '200px 0px' }); // Trigger earlier
 
         featureLists.forEach(list => {
             listObserver.observe(list);
