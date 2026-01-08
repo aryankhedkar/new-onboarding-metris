@@ -410,7 +410,7 @@
         }
 
         .hero-image:hover img {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         /* Logos */
@@ -594,7 +594,7 @@
         }
 
         .feature-image:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15), 0 10px 10px -5px rgba(0,0,0,0.1);
         }
 
@@ -609,7 +609,7 @@
         }
 
         .feature-image:hover img {
-            transform: scale(1.08);
+            transform: scale(1.03);
         }
 
         /* AI Section */
@@ -687,7 +687,7 @@
         }
 
         .ai-card:hover .ai-card-image img {
-            transform: scale(1.1);
+            transform: scale(1.03);
         }
 
         .ai-card-content {
@@ -1341,8 +1341,8 @@
             listObserver.observe(list);
         });
 
-        // Mouse move parallax for cards
-        const cards = document.querySelectorAll('.ai-card, .solution-card, .feature-image');
+        // Mouse move parallax for cards (excluding feature images to prevent text cutoff)
+        const cards = document.querySelectorAll('.ai-card, .solution-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
