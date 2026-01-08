@@ -846,6 +846,128 @@
 
         .solution-link:hover { gap: 0.625rem; }
 
+        /* Team Section */
+        .team-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .team-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-section .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .team-tier {
+            margin-bottom: 4rem;
+        }
+
+        .team-tier:last-child {
+            margin-bottom: 0;
+        }
+
+        .team-tier-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--gray-200);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .team-card:hover::before {
+            left: 100%;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.05);
+            border-color: var(--metris-green);
+        }
+
+        .team-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 4px solid var(--metris-green-light);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: var(--metris-green);
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.2);
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .team-card:hover .team-avatar img {
+            transform: scale(1.05);
+        }
+
+        .team-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--metris-navy);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .team-role {
+            font-size: 0.95rem;
+            color: var(--metris-green);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .team-bio {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
         /* CTA */
         .cta-section {
             padding: 6rem 2rem;
@@ -918,11 +1040,14 @@
             .feature-block.reverse .feature-image { order: unset; }
             .ai-grid, .solutions-grid { grid-template-columns: 1fr; }
             .stats-inner { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         }
 
         @media (max-width: 600px) {
             .hero-buttons, .cta-buttons { flex-direction: column; }
             .stats-inner { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .team-avatar { width: 120px; height: 120px; }
             .footer-inner {
                 flex-direction: column;
                 gap: 1.5rem;
@@ -941,6 +1066,7 @@
                 <li><a href="#features">Platform</a></li>
                 <li><a href="#ai">AI & Automation</a></li>
                 <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#team">Team</a></li>
                 <li><a href="#">Pricing</a></li>
             </ul>
             <div class="nav-cta">
@@ -1172,6 +1298,98 @@
         </div>
     </section>
 
+    <section class="team-section" id="team">
+        <div class="team-inner">
+            <div class="section-header">
+                <p class="section-tag">Team</p>
+                <h2>Meet the people building Metris</h2>
+                <p>We're a team of engineers, designers, and solar experts working to make renewable energy management simple.</p>
+            </div>
+
+            <div class="team-tier">
+                <h3 class="team-tier-title">Leadership</h3>
+                <div class="team-grid">
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/natasha.jpeg" alt="Natasha Jones">
+                        </div>
+                        <h3 class="team-name">Natasha Jones</h3>
+                        <p class="team-role">CEO</p>
+                        <p class="team-bio">Co-Founder & CEO | Forbes 30 Under 30</p>
+                    </div>
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/maria.jpeg" alt="Maria Lavrentyeva">
+                        </div>
+                        <h3 class="team-name">Maria Lavrentyeva</h3>
+                        <p class="team-role">Head of Product</p>
+                        <p class="team-bio">Building Metris Energy</p>
+                    </div>
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/james.jpeg" alt="James Ferretti">
+                        </div>
+                        <h3 class="team-name">James Ferretti</h3>
+                        <p class="team-role">Head of Engineering</p>
+                        <p class="team-bio">Head of Engineering at Metris Energy | Angel Investor | Ex-Wise</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-tier">
+                <h3 class="team-tier-title">Engineering & Design</h3>
+                <div class="team-grid">
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/brian.jpeg" alt="Brian Muyambo">
+                        </div>
+                        <h3 class="team-name">Brian Muyambo</h3>
+                        <p class="team-role">Senior Software Engineer</p>
+                        <p class="team-bio">Building scalable solutions for solar asset management</p>
+                    </div>
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/joe.jpeg" alt="Joe Love">
+                        </div>
+                        <h3 class="team-name">Joe Love</h3>
+                        <p class="team-role">Senior Software Engineer</p>
+                        <p class="team-bio">Creating robust systems for renewable energy data</p>
+                    </div>
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/dilan.jpeg" alt="Dilan">
+                        </div>
+                        <h3 class="team-name">Dilan</h3>
+                        <p class="team-role">Senior Product Designer</p>
+                        <p class="team-bio">Designing intuitive experiences for solar professionals</p>
+                    </div>
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/jake.jpeg" alt="Jake">
+                        </div>
+                        <h3 class="team-name">Jake</h3>
+                        <p class="team-role">Founding Data Engineer</p>
+                        <p class="team-bio">Building the data infrastructure that powers Metris</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-tier">
+                <h3 class="team-tier-title">Operations</h3>
+                <div class="team-grid">
+                    <div class="team-card animate-on-scroll">
+                        <div class="team-avatar">
+                            <img src="Images/aryan.jpeg" alt="Aryan D. Khedkar">
+                        </div>
+                        <h3 class="team-name">Aryan D. Khedkar</h3>
+                        <p class="team-role">Customer Success Specialist</p>
+                        <p class="team-bio">Helping customers get the most out of Metris</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="cta-section" id="cta">
         <div class="cta-inner">
             <h2>Ready to see Metris in action?</h2>
@@ -1240,7 +1458,7 @@
         }, observerOptions);
 
         // Add animate-on-scroll class to elements
-        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .hero-content, .hero-image');
+        const animateElements = document.querySelectorAll('.feature-block, .feature-content, .feature-image, .ai-card, .solution-card, .section-header, .stats-section, .hero-content, .hero-image, .team-card');
         animateElements.forEach((el, index) => {
             el.classList.add('animate-on-scroll');
             el.style.transitionDelay = `${index * 0.1}s`;
