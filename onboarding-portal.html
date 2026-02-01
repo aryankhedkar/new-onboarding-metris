@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboard Your Sites - Metris</title>
+    <link rel="icon" type="image/png" href="./Logo/Avatar-Black.png">
+    <link rel="apple-touch-icon" href="./Logo/Avatar-Black.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-white: #ffffff;
+            --bg-dark: #0f172a;
+            --border: #e2e8f0;
+            --border-focus: #10b981;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --accent-bg: rgba(16, 185, 129, 0.08);
+            --accent-border: rgba(16, 185, 129, 0.3);
+            --purple: #8b5cf6;
+            --purple-bg: rgba(139, 92, 246, 0.08);
+            --blue: #3b82f6;
+            --blue-bg: rgba(59, 130, 246, 0.08);
+            --orange: #f59e0b;
+            --orange-bg: rgba(245, 158, 11, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-dark);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo { height: 28px; filter: brightness(0) invert(1); }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .header-link:hover { color: white; }
+
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--accent);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .header-btn:hover { background: var(--accent-hover); }
+        .header-btn svg { width: 18px; height: 18px; }
+
+        /* Progress Bar */
+        .progress-header {
+            background: var(--bg-dark);
+            padding: 24px 32px 32px;
+            color: white;
+        }
+
+        .progress-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-subtitle {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 24px;
+        }
+
+        .progress-subtitle a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            max-width: 800px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .progress-step:not(:last-child)::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+            margin-left: 12px;
+        }
+
+        .progress-step.completed:not(:last-child)::after {
+            background: var(--accent);
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .progress-step.active .step-circle {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .progress-step.completed .step-circle {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .step-circle svg { width: 18px; height: 18px; }
+
+        .step-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .step-info p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .progress-step.active .step-info p,
+        .progress-step.completed .step-info p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 32px 80px;
+        }
+
+        /* Step Pages */
+        .step-page { display: none; }
+        .step-page.active { display: block; }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Choice Cards */
+        .choice-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .choice-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            gap: 20px;
+        }
+
+        .choice-card:hover {
+            border-color: var(--accent);
+        }
+
+        .choice-card.selected {
+            border-color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        .choice-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .choice-card.selected .choice-radio {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .choice-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            display: none;
+        }
+
+        .choice-card.selected .choice-radio::after {
+            display: block;
+        }
+
+        .choice-content { flex: 1; }
+
+        .choice-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .choice-icon {
+            width: 28px;
+            height: 28px;
+            color: var(--purple);
+        }
+
+        .choice-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .choice-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: var(--border);
+            color: var(--text-secondary);
+        }
+
+        .choice-badge.recommended {
+            background: var(--accent-bg);
+            color: var(--accent);
+        }
+
+        .choice-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .choice-features {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .choice-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .choice-feature svg {
+            width: 18px;
+            height: 18px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .choice-feature.time svg {
+            color: var(--text-muted);
+        }
+
+        /* Site List */
+        .site-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .site-item {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .site-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .site-item.completed {
+            border-color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        .site-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .site-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+        }
+
+        .site-info { flex: 1; }
+
+        .site-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .site-address {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .site-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .site-status.pending { color: var(--orange); }
+        .site-status.complete { color: var(--accent); }
+
+        .site-status svg { width: 18px; height: 18px; }
+
+        .site-arrow {
+            color: var(--text-muted);
+        }
+
+        .site-arrow svg { width: 20px; height: 20px; }
+
+        /* Add Site Button */
+        .add-site-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-white);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-site-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        .add-site-btn svg { width: 20px; height: 20px; }
+
+        /* Form Styles */
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .form-grid.single { grid-template-columns: 1fr; }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full { grid-column: span 2; }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-label span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .form-input, .form-select {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            transition: all 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-bg);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Platform Selection */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .platform-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .platform-chip:hover {
+            border-color: var(--accent);
+        }
+
+        .platform-chip.selected {
+            border-color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        .platform-chip-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .platform-chip.selected .platform-chip-logo {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+        }
+
+        .platform-chip-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .platform-chip-check {
+            margin-left: auto;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .platform-chip.selected .platform-chip-check {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .platform-chip.selected .platform-chip-check svg {
+            color: white;
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Credential Box */
+        .credential-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .credential-box-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .credential-box-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        .credential-box-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .credential-box-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .credential-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--border);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .credential-tab {
+            flex: 1;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .credential-tab:hover { color: var(--text-primary); }
+
+        .credential-tab.active {
+            background: var(--bg-white);
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .credential-panel { display: none; }
+        .credential-panel.active { display: block; }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 14px;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 3px;
+        }
+
+        .step-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .step-text a:hover { text-decoration: underline; }
+
+        .step-text code {
+            background: var(--accent-bg);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        .step-text strong { color: var(--text-primary); }
+
+        .portal-link-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--blue-bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .portal-link-box svg {
+            width: 20px;
+            height: 20px;
+            color: var(--blue);
+        }
+
+        .portal-link-box a {
+            color: var(--blue);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .portal-link-box a:hover { text-decoration: underline; }
+
+        .video-section {
+            margin-bottom: 20px;
+        }
+
+        .video-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-section-title svg {
+            width: 18px;
+            height: 18px;
+            color: var(--purple);
+        }
+
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .video-placeholder svg {
+            width: 40px;
+            height: 40px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .video-placeholder p {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .invite-box {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .invite-box svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .invite-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .invite-box p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .invite-box code {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--accent);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn svg { width: 14px; height: 14px; }
+
+        /* Month Grid */
+        .month-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        /* Array Styles */
+        .array-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .array-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .array-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .array-hint {
+            display: flex;
+            gap: 24px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .remove-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover { background: rgba(239, 68, 68, 0.1); }
+        .remove-btn svg { width: 14px; height: 14px; }
+
+        .add-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .add-more-btn:hover { text-decoration: underline; }
+        .add-more-btn svg { width: 16px; height: 16px; }
+
+        /* Optional Toggle */
+        .optional-toggle {
+            flex-shrink: 0;
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .toggle-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+
+        .collapsible-section {
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 16px;
+        }
+
+        /* Price Styles */
+        .price-section {
+            margin-bottom: 24px;
+        }
+
+        .price-section:last-child { margin-bottom: 0; }
+
+        .price-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .price-hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .price-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .remove-price-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ef4444;
+            background: transparent;
+            border-radius: 8px;
+            color: #ef4444;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-bottom: 6px;
+        }
+
+        .remove-price-btn:hover { background: rgba(239, 68, 68, 0.1); }
+        .remove-price-btn svg { width: 16px; height: 16px; }
+
+        .add-price-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .add-price-btn:hover { text-decoration: underline; }
+        .add-price-btn svg { width: 14px; height: 14px; }
+
+        @media (max-width: 768px) {
+            .month-grid { grid-template-columns: repeat(2, 1fr); }
+            .array-item .form-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* Info Box */
+        .info-box {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: var(--blue-bg);
+            border-radius: 10px;
+            margin-bottom: 24px;
+        }
+
+        .info-box.success { background: var(--accent-bg); }
+
+        .info-box-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .info-box.success .info-box-icon { color: var(--accent); }
+
+        .info-box-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .info-box-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .info-box-content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--bg-white);
+        }
+
+        .file-upload:hover {
+            border-color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        .file-upload-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            color: var(--text-muted);
+        }
+
+        .file-upload h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .file-upload p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .file-upload span {
+            color: var(--accent);
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn svg { width: 18px; height: 18px; }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover { background: var(--accent-hover); }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .summary-card-header {
+            background: var(--bg-primary);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .summary-card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .summary-card-body {
+            padding: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-row:last-child { border-bottom: none; }
+
+        .summary-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .summary-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Success State */
+        .success-state {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--accent-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--accent);
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .success-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        .success-timeline {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 24px;
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .timeline-dot.pending {
+            background: var(--border);
+        }
+
+        .timeline-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Help footer */
+        .help-footer {
+            text-align: center;
+            padding: 24px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 32px;
+        }
+
+        .help-footer p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .help-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 24px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--bg-white);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+        }
+
+        .modal-close svg { width: 20px; height: 20px; }
+
+        .modal-body { padding: 24px; }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-dark);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+        }
+
+        .toast.show { display: flex; }
+        .toast svg { width: 18px; height: 18px; color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: span 1; }
+            .platform-grid { grid-template-columns: repeat(2, 1fr); }
+            .progress-steps { flex-direction: column; gap: 16px; }
+            .progress-step::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img src="./Logo/White-Horizontal.png" alt="Metris" class="logo">
+        <div class="header-right">
+            <a href="mailto:support@metrisenergy.com" class="header-link">Need help?</a>
+            <a href="https://calendly.com/metris-energy/onboarding" target="_blank" class="header-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Book a Call
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Header -->
+    <div class="progress-header">
+        <h1 class="progress-title">Onboard your sites</h1>
+        <p class="progress-subtitle">Three stages to getting your sites onboarded to Metris. Email <a href="mailto:support@metrisenergy.com">support@metrisenergy.com</a> for assistance.</p>
+        
+        <div class="progress-steps">
+            <div class="progress-step active" id="step1">
+                <div class="step-circle">1</div>
+                <div class="step-info">
+                    <h4>Add Sites</h4>
+                    <p>Site details + credentials</p>
+                </div>
+            </div>
+            <div class="progress-step" id="step2">
+                <div class="step-circle">2</div>
+                <div class="step-info">
+                    <h4>Review</h4>
+                    <p>Submitted for review</p>
+                </div>
+            </div>
+            <div class="progress-step" id="step3">
+                <div class="step-circle">3</div>
+                <div class="step-info">
+                    <h4>Live</h4>
+                    <p>Sites on Metris</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Step 1: Choose Method -->
+        <div class="step-page active" id="methodPage">
+            <h2 class="page-title">Add a new site to Metris</h2>
+            <p class="page-subtitle">Choose how you'd like to onboard your site</p>
+
+            <div class="choice-cards">
+                <div class="choice-card selected" onclick="selectMethod('ai')">
+                    <div class="choice-radio"></div>
+                    <div class="choice-content">
+                        <div class="choice-header">
+                            <svg class="choice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                            <h3 class="choice-title">AI-Assisted Onboarding</h3>
+                            <span class="choice-badge">Beta</span>
+                            <span class="choice-badge recommended">Recommended</span>
+                        </div>
+                        <p class="choice-desc">Upload your project design documents and <strong>Metris AI will help you auto-fill the site onboarding form</strong></p>
+                        <div class="choice-features">
+                            <div class="choice-feature">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Auto-fills technical details based on design documents</span>
+                            </div>
+                            <div class="choice-feature">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>You can validate and update all details before completing</span>
+                            </div>
+                            <div class="choice-feature">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Best results with PDF PVSol documentation</span>
+                            </div>
+                            <div class="choice-feature time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span>Estimated time: 5-10 mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="choice-card" onclick="selectMethod('manual')">
+                    <div class="choice-radio"></div>
+                    <div class="choice-content">
+                        <div class="choice-header">
+                            <svg class="choice-icon" style="color: var(--text-muted);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                            <h3 class="choice-title">Enter site details manually</h3>
+                        </div>
+                        <p class="choice-desc">Fill in all the required site data step-by-step, using structured sections to guide you through.</p>
+                        <div class="choice-features">
+                            <div class="choice-feature">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Recommended if PVSol documentation is not available</span>
+                            </div>
+                            <div class="choice-feature time">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span>Estimated time: 30+ mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-row" style="border-top: none; padding-top: 0;">
+                <div></div>
+                <button class="btn btn-primary" onclick="goToSiteDetails()">
+                    Continue
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Site Details + Credentials -->
+        <div class="step-page" id="siteDetailsPage">
+            <h2 class="page-title">Site details &amp; platform access</h2>
+            <p class="page-subtitle">Add your site information and share credentials for the monitoring platforms</p>
+
+            <!-- AI Upload Section (shown if AI method selected) -->
+            <div id="aiUploadSection" class="card" style="margin-bottom: 24px;">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Upload PVSol or design documents</h3>
+                        <p class="card-desc">We'll extract site details automatically</p>
+                    </div>
+                </div>
+                <div class="file-upload" onclick="document.getElementById('docUpload').click()">
+                    <input type="file" id="docUpload" hidden accept=".pdf,.doc,.docx">
+                    <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <h4>Drop files here or <span>browse</span></h4>
+                    <p>PDF, DOC up to 25MB</p>
+                </div>
+            </div>
+
+            <!-- Site Overview -->
+            <div class="card">
+                <h3 class="card-title" style="margin-bottom: 20px;">Site Overview</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Site name *</label>
+                        <input type="text" class="form-input" placeholder="Enter site name" id="siteName">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Total capacity (kWp) *</label>
+                        <input type="number" class="form-input" placeholder="e.g. 250" id="siteCapacity">
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Address *</label>
+                        <input type="text" class="form-input" placeholder="Full address" id="siteAddress">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">City *</label>
+                        <input type="text" class="form-input" placeholder="City" id="siteCity">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Postcode *</label>
+                        <input type="text" class="form-input" placeholder="Postcode" id="sitePostcode">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date energised *</label>
+                        <input type="date" class="form-input" id="siteDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Site type *</label>
+                        <select class="form-select" id="siteType">
+                            <option value="">Select type</option>
+                            <option value="ppa-self">PPA (Self-metered)</option>
+                            <option value="ppa-take">PPA (Take-or-Pay)</option>
+                            <option value="merchant">No PPA (Merchant)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="card">
+                <h3 class="card-title" style="margin-bottom: 20px;">Technical Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Total installed capacity (kWp) *</label>
+                        <input type="number" class="form-input" placeholder="e.g. 250" id="siteCapacityTech" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Yield estimate (kWh/kWp) *</label>
+                        <input type="number" class="form-input" placeholder="e.g. 850" id="siteYield">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Annual degradation (%) *</label>
+                        <input type="number" class="form-input" placeholder="e.g. 0.5" step="0.1" id="siteDegradation">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Default asset type *</label>
+                        <select class="form-select" id="assetType">
+                            <option value="inverter">Inverter</option>
+                            <option value="meter">Meter</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrays -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Arrays</h3>
+                        <p class="card-desc">Add the array configuration for this site</p>
+                    </div>
+                </div>
+                <div id="arraysContainer">
+                    <div class="array-item" data-array="1">
+                        <div class="array-header">
+                            <span class="array-title">Array 1</span>
+                            <button class="remove-btn" onclick="removeArray(this)" style="display: none;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                Remove
+                            </button>
+                        </div>
+                        <div class="array-hint">
+                            <span>Azimuth degrees (0 = North)</span>
+                            <span>Slope degrees (0 = Flat)</span>
+                        </div>
+                        <div class="form-grid" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="form-group">
+                                <label class="form-label">Azimuth *</label>
+                                <input type="number" class="form-input" placeholder="e.g. 180" id="array1_azimuth">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Slope *</label>
+                                <input type="number" class="form-input" placeholder="e.g. 15" id="array1_slope">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Capacity (kW) *</label>
+                                <input type="number" class="form-input" placeholder="e.g. 50" id="array1_capacity" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-more-btn" onclick="addArray()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add another array
+                </button>
+            </div>
+
+            <!-- PR Targets -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">PR Targets</h3>
+                        <p class="card-desc">Monthly performance ratio targets (%)</p>
+                    </div>
+                    <div class="optional-toggle">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="prTargetsEnabled" onchange="toggleSection('prTargets')">
+                            <span>Add PR targets now</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="prTargetsSection" class="collapsible-section" style="display: none;">
+                    <div class="month-grid">
+                        <div class="form-group"><label class="form-label">January (%)</label><input type="number" class="form-input" placeholder="0" id="pr_jan" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">February (%)</label><input type="number" class="form-input" placeholder="0" id="pr_feb" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">March (%)</label><input type="number" class="form-input" placeholder="0" id="pr_mar" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">April (%)</label><input type="number" class="form-input" placeholder="0" id="pr_apr" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">May (%)</label><input type="number" class="form-input" placeholder="0" id="pr_may" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">June (%)</label><input type="number" class="form-input" placeholder="0" id="pr_jun" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">July (%)</label><input type="number" class="form-input" placeholder="0" id="pr_jul" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">August (%)</label><input type="number" class="form-input" placeholder="0" id="pr_aug" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">September (%)</label><input type="number" class="form-input" placeholder="0" id="pr_sep" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">October (%)</label><input type="number" class="form-input" placeholder="0" id="pr_oct" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">November (%)</label><input type="number" class="form-input" placeholder="0" id="pr_nov" step="0.1"></div>
+                        <div class="form-group"><label class="form-label">December (%)</label><input type="number" class="form-input" placeholder="0" id="pr_dec" step="0.1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generation Budget -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Generation Budget</h3>
+                        <p class="card-desc">Monthly generation budget (kWh) - relates to the first year of commissioning</p>
+                    </div>
+                    <div class="optional-toggle">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="genBudgetEnabled" onchange="toggleSection('genBudget')">
+                            <span>Add budget now</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="genBudgetSection" class="collapsible-section" style="display: none;">
+                    <div class="month-grid">
+                        <div class="form-group"><label class="form-label">January (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_jan"></div>
+                        <div class="form-group"><label class="form-label">February (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_feb"></div>
+                        <div class="form-group"><label class="form-label">March (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_mar"></div>
+                        <div class="form-group"><label class="form-label">April (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_apr"></div>
+                        <div class="form-group"><label class="form-label">May (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_may"></div>
+                        <div class="form-group"><label class="form-label">June (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_jun"></div>
+                        <div class="form-group"><label class="form-label">July (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_jul"></div>
+                        <div class="form-group"><label class="form-label">August (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_aug"></div>
+                        <div class="form-group"><label class="form-label">September (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_sep"></div>
+                        <div class="form-group"><label class="form-label">October (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_oct"></div>
+                        <div class="form-group"><label class="form-label">November (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_nov"></div>
+                        <div class="form-group"><label class="form-label">December (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="gen_dec"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Consumption Budget -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Self-Consumption Budget</h3>
+                        <p class="card-desc">Monthly self-consumption budget (kWh) - Metris will calculate the budget for the customer's savings</p>
+                    </div>
+                    <div class="optional-toggle">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="scBudgetEnabled" onchange="toggleSection('scBudget')">
+                            <span>Add budget now</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="scBudgetSection" class="collapsible-section" style="display: none;">
+                    <div class="month-grid">
+                        <div class="form-group"><label class="form-label">January (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_jan"></div>
+                        <div class="form-group"><label class="form-label">February (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_feb"></div>
+                        <div class="form-group"><label class="form-label">March (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_mar"></div>
+                        <div class="form-group"><label class="form-label">April (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_apr"></div>
+                        <div class="form-group"><label class="form-label">May (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_may"></div>
+                        <div class="form-group"><label class="form-label">June (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_jun"></div>
+                        <div class="form-group"><label class="form-label">July (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_jul"></div>
+                        <div class="form-group"><label class="form-label">August (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_aug"></div>
+                        <div class="form-group"><label class="form-label">September (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_sep"></div>
+                        <div class="form-group"><label class="form-label">October (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_oct"></div>
+                        <div class="form-group"><label class="form-label">November (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_nov"></div>
+                        <div class="form-group"><label class="form-label">December (kWh)</label><input type="number" class="form-input" placeholder="kWh" id="sc_dec"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Site Prices -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Site Prices</h3>
+                        <p class="card-desc">Export, import, and feed-in tariff pricing</p>
+                    </div>
+                    <div class="optional-toggle">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="pricesEnabled" onchange="toggleSection('prices')">
+                            <span>Add prices now</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="pricesSection" class="collapsible-section" style="display: none;">
+                    <div class="price-section">
+                        <h4 class="price-section-title">Export prices</h4>
+                        <div id="exportPricesContainer">
+                            <div class="price-row">
+                                <div class="form-group" style="flex: 1;">
+                                    <label class="form-label">Price (£/kWh)</label>
+                                    <input type="number" class="form-input" placeholder="£" step="0.001" id="export_price_1">
+                                </div>
+                                <div class="form-group" style="flex: 1;">
+                                    <label class="form-label">Date started</label>
+                                    <input type="date" class="form-input" id="export_date_1">
+                                </div>
+                                <button class="remove-price-btn" onclick="this.parentElement.remove()" style="display: none;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-price-btn" onclick="addPriceRow('export')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add another export price
+                        </button>
+                    </div>
+                    <div class="price-section">
+                        <h4 class="price-section-title">Import prices</h4>
+                        <p class="price-hint">If you share the import price, Metris will calculate the customer's savings on any measures they receive</p>
+                        <div id="importPricesContainer">
+                            <div class="price-row">
+                                <div class="form-group" style="flex: 1;">
+                                    <label class="form-label">Price (£/kWh)</label>
+                                    <input type="number" class="form-input" placeholder="£" step="0.001" id="import_price_1">
+                                </div>
+                                <div class="form-group" style="flex: 1;">
+                                    <label class="form-label">Date started</label>
+                                    <input type="date" class="form-input" id="import_date_1">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="add-price-btn" onclick="addPriceRow('import')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add another import price
+                        </button>
+                    </div>
+                    <div class="price-section">
+                        <h4 class="price-section-title">Feed-in-Tariff prices</h4>
+                        <div id="fitPricesContainer">
+                            <div class="price-row">
+                                <div class="form-group" style="flex: 1;">
+                                    <label class="form-label">Price (£/kWh)</label>
+                                    <input type="number" class="form-input" placeholder="£" step="0.001" id="fit_price_1">
+                                </div>
+                                <div class="form-group" style="flex: 1;">
+                                    <label class="form-label">Date started</label>
+                                    <input type="date" class="form-input" id="fit_date_1">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="add-price-btn" onclick="addPriceRow('fit')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add another Feed-in-Tariff price
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inverter Platform -->
+            <div class="card">
+                <h3 class="card-title">Inverter Monitoring Platform *</h3>
+                <p class="card-desc" style="margin-bottom: 20px;">Select the platform used to monitor inverters at this site</p>
+                
+                <div class="platform-grid" id="inverterGrid">
+                    <div class="platform-chip" onclick="selectPlatform(this, 'inverter', 'solaredge')">
+                        <div class="platform-chip-logo">SE</div>
+                        <span class="platform-chip-name">SolarEdge</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'inverter', 'solis')">
+                        <div class="platform-chip-logo">SL</div>
+                        <span class="platform-chip-name">Solis Cloud</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'inverter', 'sma')">
+                        <div class="platform-chip-logo">SMA</div>
+                        <span class="platform-chip-name">SMA Sunny</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'inverter', 'sungrow')">
+                        <div class="platform-chip-logo">SG</div>
+                        <span class="platform-chip-name">Sungrow</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'inverter', 'huawei')">
+                        <div class="platform-chip-logo">HW</div>
+                        <span class="platform-chip-name">Huawei</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'inverter', 'fronius')">
+                        <div class="platform-chip-logo">FR</div>
+                        <span class="platform-chip-name">Fronius</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                </div>
+
+                <div id="inverterCredentials" style="display: none;"></div>
+            </div>
+
+            <!-- Meter Platform -->
+            <div class="card">
+                <h3 class="card-title">Meter Monitoring Platform <span style="font-weight: 400; color: var(--text-muted);">(if applicable)</span></h3>
+                <p class="card-desc" style="margin-bottom: 20px;">Select the platform used to collect meter readings</p>
+                
+                <div class="platform-grid" id="meterGrid">
+                    <div class="platform-chip" onclick="selectPlatform(this, 'meter', 'meteronline')">
+                        <div class="platform-chip-logo">MO</div>
+                        <span class="platform-chip-name">Meteronline</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'meter', 'juggle')">
+                        <div class="platform-chip-logo">JG</div>
+                        <span class="platform-chip-name">Juggle</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'meter', 'stark')">
+                        <div class="platform-chip-logo">ST</div>
+                        <span class="platform-chip-name">Stark</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'meter', 'passiv')">
+                        <div class="platform-chip-logo">PS</div>
+                        <span class="platform-chip-name">Passiv</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'meter', 'rbee')">
+                        <div class="platform-chip-logo">RB</div>
+                        <span class="platform-chip-name">RBEE Solar</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                    <div class="platform-chip" onclick="selectPlatform(this, 'meter', 'none')">
+                        <div class="platform-chip-logo">--</div>
+                        <span class="platform-chip-name">No meter</span>
+                        <div class="platform-chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    </div>
+                </div>
+
+                <div id="meterCredentials" style="display: none;"></div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="goBack()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                    Back
+                </button>
+                <button class="btn btn-primary" onclick="goToReview()">
+                    Review &amp; Submit
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Review -->
+        <div class="step-page" id="reviewPage">
+            <h2 class="page-title">Review your submission</h2>
+            <p class="page-subtitle">Check the details below before submitting to Metris</p>
+
+            <div class="summary-card">
+                <div class="summary-card-header">
+                    <h3 class="summary-card-title" id="reviewSiteName">Site Name</h3>
+                    <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 13px;" onclick="goToSiteDetails()">Edit</button>
+                </div>
+                <div class="summary-card-body">
+                    <div class="summary-row">
+                        <span class="summary-label">Address</span>
+                        <span class="summary-value" id="reviewAddress">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Capacity</span>
+                        <span class="summary-value" id="reviewCapacity">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Date energised</span>
+                        <span class="summary-value" id="reviewDate">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Site type</span>
+                        <span class="summary-value" id="reviewType">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Inverter platform</span>
+                        <span class="summary-value" id="reviewInverter">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Meter platform</span>
+                        <span class="summary-value" id="reviewMeter">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box success">
+                <svg class="info-box-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <div class="info-box-content">
+                    <h4>What happens next?</h4>
+                    <p>After you submit, our team will verify the credentials and configure your site. Your sites will be live on the Metris dashboard within <strong>1-2 business days</strong>.</p>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="goToSiteDetails()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                    Back
+                </button>
+                <button class="btn btn-primary" onclick="submitSite()">
+                    Submit to Metris
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Success -->
+        <div class="step-page" id="successPage">
+            <div class="success-state">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+                <h2 class="success-title">Site submitted successfully</h2>
+                <p class="success-desc">We've received your site details and credentials. Our team will verify everything and your site will be live on Metris within 1-2 business days.</p>
+                
+                <div class="success-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <span class="timeline-label">Submitted</span>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot pending"></div>
+                        <span class="timeline-label">Under review</span>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot pending"></div>
+                        <span class="timeline-label">Live on Metris</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="addAnotherSite()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Add Another Site
+                </button>
+            </div>
+
+            <div class="help-footer">
+                <p>Questions? Email <a href="mailto:support@metrisenergy.com">support@metrisenergy.com</a> or <a href="https://calendly.com/metris-energy/onboarding" target="_blank">book a call</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        <span id="toastMessage">Success</span>
+    </div>
+
+    <script>
+        // State
+        let selectedMethod = 'ai';
+        let selectedInverter = null;
+        let selectedMeter = null;
+
+        // Platform credential configs with full guidance
+        const platformCredentials = {
+            solaredge: {
+                name: 'SolarEdge',
+                logo: 'SE',
+                portalUrl: 'https://monitoring.solaredge.com',
+                authType: 'API Key',
+                videoUrl: '', // Add Loom URL when ready
+                steps: [
+                    'Log in to the <a href="https://monitoring.solaredge.com" target="_blank">SolarEdge Monitoring Portal</a> with your admin account',
+                    'Click <strong>Admin</strong> in the top menu bar',
+                    'Select <strong>Site Access</strong> from the dropdown',
+                    'Click the <strong>API Access</strong> tab',
+                    'If no API key exists, click <strong>New Key</strong> to generate one',
+                    'Copy the <strong>API Key</strong> (32-character alphanumeric string)',
+                    'Also note your <strong>Site ID</strong> (visible in URL or site details)'
+                ],
+                fields: [
+                    { label: 'API Key', placeholder: 'Enter your 32-character API key', type: 'text' },
+                    { label: 'Site ID(s)', placeholder: 'Enter site IDs (comma-separated for multiple)', type: 'text' }
+                ]
+            },
+            solis: {
+                name: 'Solis Cloud',
+                logo: 'SL',
+                portalUrl: 'https://www.soliscloud.com',
+                authType: 'API Key + Secret',
+                videoUrl: '',
+                steps: [
+                    'Log in to <a href="https://www.soliscloud.com" target="_blank">Solis Cloud</a>',
+                    'Click your username in the top-right corner',
+                    'Select <strong>API Management</strong> from the dropdown',
+                    'If API access is not available, click <strong>Apply for API</strong> (approval takes 1-2 days)',
+                    'Once approved, you will see your <strong>KeyId</strong> and <strong>KeySecret</strong>',
+                    'Copy both values - the KeySecret is only shown once!'
+                ],
+                fields: [
+                    { label: 'Key ID', placeholder: 'Your Solis API Key ID', type: 'text' },
+                    { label: 'Key Secret', placeholder: 'Your Solis API Key Secret', type: 'password' }
+                ]
+            },
+            sma: {
+                name: 'SMA Sunny Portal',
+                logo: 'SMA',
+                portalUrl: 'https://www.sunnyportal.com',
+                authType: 'User Invitation',
+                videoUrl: '',
+                steps: [
+                    'Log in to <a href="https://www.sunnyportal.com" target="_blank">Sunny Portal</a> as administrator',
+                    'Click the <strong>Configuration</strong> (gear icon) in the menu',
+                    'Select <strong>User Management</strong>',
+                    'Click <strong>New User</strong>',
+                    'Enter email: <code>luke@metrisenergy.com</code>',
+                    'Set the role to <strong>Standard User</strong> (read-only access)',
+                    'Select the plants/sites you want to grant access to',
+                    'Click <strong>Send Invitation</strong>'
+                ],
+                fields: [],
+                invite: true,
+                inviteEmail: 'luke@metrisenergy.com'
+            },
+            sungrow: {
+                name: 'Sungrow iSolarCloud',
+                logo: 'SG',
+                portalUrl: 'https://portaleu.isolarcloud.com',
+                authType: 'API Credentials',
+                videoUrl: '',
+                steps: [
+                    'Log in to <a href="https://portaleu.isolarcloud.com" target="_blank">iSolarCloud</a>',
+                    'Click your username in the top right',
+                    'Go to <strong>Basic Info</strong> → <strong>API Management</strong>',
+                    'If API access is not enabled, apply for it (approval takes 2-3 days)',
+                    'Once approved, copy your <strong>AppID</strong> and <strong>AppSecret</strong>',
+                    'Also note your <strong>Organization ID</strong> from the account settings'
+                ],
+                fields: [
+                    { label: 'App ID', placeholder: 'Your Sungrow App ID', type: 'text' },
+                    { label: 'App Secret', placeholder: 'Your Sungrow App Secret', type: 'password' },
+                    { label: 'Organization ID', placeholder: 'Your Organization ID', type: 'text' }
+                ]
+            },
+            huawei: {
+                name: 'Huawei FusionSolar',
+                logo: 'HW',
+                portalUrl: 'https://eu5.fusionsolar.huawei.com',
+                authType: 'Northbound API',
+                videoUrl: '',
+                steps: [
+                    'Log in to <a href="https://eu5.fusionsolar.huawei.com" target="_blank">FusionSolar</a> (use your region\'s portal)',
+                    'Go to <strong>System</strong> → <strong>Company Management</strong>',
+                    'Click <strong>Northbound API Management</strong>',
+                    'Click <strong>Add</strong> to create a new API account',
+                    'Enter a username (e.g., "metris-integration")',
+                    'Set a secure password and note it down',
+                    'Copy the <strong>System Code</strong> provided',
+                    'Make sure the account has <strong>read permissions</strong> for the sites'
+                ],
+                fields: [
+                    { label: 'Username', placeholder: 'API account username', type: 'text' },
+                    { label: 'Password', placeholder: 'API account password', type: 'password' },
+                    { label: 'System Code', placeholder: 'Your Huawei System Code', type: 'text' },
+                    { label: 'Portal Domain', placeholder: 'e.g., eu5.fusionsolar.huawei.com', type: 'text' }
+                ]
+            },
+            fronius: {
+                name: 'Fronius Solar.web',
+                logo: 'FR',
+                portalUrl: 'https://www.solarweb.com',
+                authType: 'API Key',
+                videoUrl: '',
+                steps: [
+                    'Log in to <a href="https://www.solarweb.com" target="_blank">Fronius Solar.web</a>',
+                    'Click your name in the top right → <strong>Settings</strong>',
+                    'Go to <strong>Access control</strong> → <strong>API Keys</strong>',
+                    'Click <strong>Create API Key</strong>',
+                    'Give it a name (e.g., "Metris Integration")',
+                    'Set permissions to <strong>Read</strong> for the systems you want to share',
+                    'Copy the generated API Key'
+                ],
+                fields: [
+                    { label: 'API Key', placeholder: 'Your Fronius API Key', type: 'text' }
+                ]
+            },
+            meteronline: {
+                name: 'Meteronline',
+                logo: 'MO',
+                portalUrl: 'https://www.meteronline.com',
+                authType: 'API Key + Customer ID',
+                videoUrl: '',
+                steps: [
+                    'Log in to <a href="https://www.meteronline.com" target="_blank">Meteronline</a>',
+                    'Go to <strong>Account Settings</strong> or <strong>API Access</strong>',
+                    'Generate or locate your <strong>API Key</strong>',
+                    'Note your <strong>Customer ID</strong> (usually visible in account details)',
+                    'Ensure the API key has read access to the meters you want to share'
+                ],
+                fields: [
+                    { label: 'API Key', placeholder: 'Your Meteronline API key', type: 'text' },
+                    { label: 'Customer ID', placeholder: 'Your Customer ID', type: 'text' }
+                ]
+            },
+            juggle: {
+                name: 'Juggle',
+                logo: 'JG',
+                portalUrl: 'https://www.juggle.energy',
+                authType: 'API Key',
+                videoUrl: '',
+                steps: [
+                    'Log in to the <a href="https://www.juggle.energy" target="_blank">Juggle portal</a>',
+                    'Go to <strong>Settings</strong> → <strong>API Access</strong>',
+                    'Click <strong>Generate API Key</strong> if you don\'t have one',
+                    'Copy your API key'
+                ],
+                fields: [
+                    { label: 'API Key', placeholder: 'Your Juggle API key', type: 'text' }
+                ]
+            },
+            stark: {
+                name: 'Stark',
+                logo: 'ST',
+                portalUrl: 'https://www.stark.co.uk',
+                authType: 'Data Sharing Agreement',
+                videoUrl: '',
+                steps: [
+                    'Stark requires a formal data sharing agreement',
+                    'Contact your Stark account manager to request API access for Metris',
+                    'Mention you want to share data with <strong>Metris Energy</strong>',
+                    'Once approved, they will provide the necessary credentials'
+                ],
+                fields: [],
+                invite: true,
+                inviteNote: 'We will contact Stark on your behalf to set up the data sharing agreement.'
+            },
+            passiv: {
+                name: 'Passiv Systems',
+                logo: 'PS',
+                portalUrl: 'https://www.passivsystems.com',
+                authType: 'API Token',
+                videoUrl: '',
+                steps: [
+                    'Log in to your Passiv Systems portal',
+                    'Navigate to <strong>API Settings</strong> or <strong>Integrations</strong>',
+                    'Generate a new API token',
+                    'Copy the token value'
+                ],
+                fields: [
+                    { label: 'API Token', placeholder: 'Your Passiv API token', type: 'text' }
+                ]
+            },
+            rbee: {
+                name: 'RBEE Solar',
+                logo: 'RB',
+                portalUrl: 'https://www.rbeesolar.com',
+                authType: 'User Invitation',
+                videoUrl: '',
+                steps: [
+                    'Log in to the <a href="https://www.rbeesolar.com" target="_blank">RBEE Solar portal</a>',
+                    'Go to <strong>Settings</strong> → <strong>Users</strong>',
+                    'Click <strong>Add User</strong> or <strong>Invite User</strong>',
+                    'Enter email: <code>luke@metrisenergy.com</code>',
+                    'Set permissions to <strong>Viewer</strong> or <strong>Read-only</strong>',
+                    'Send the invitation'
+                ],
+                fields: [],
+                invite: true,
+                inviteEmail: 'luke@metrisenergy.com'
+            },
+            none: {
+                name: 'No meter platform',
+                logo: '--',
+                fields: [],
+                steps: []
+            }
+        };
+
+        // Functions
+        function selectMethod(method) {
+            selectedMethod = method;
+            document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+
+        function goToSiteDetails() {
+            showPage('siteDetailsPage');
+            document.getElementById('aiUploadSection').style.display = selectedMethod === 'ai' ? 'block' : 'none';
+            updateProgressStep(1);
+        }
+
+        function goBack() {
+            showPage('methodPage');
+            updateProgressStep(1);
+        }
+
+        function goToReview() {
+            // Populate review
+            document.getElementById('reviewSiteName').textContent = document.getElementById('siteName').value || 'Unnamed Site';
+            document.getElementById('reviewAddress').textContent = 
+                [document.getElementById('siteAddress').value, document.getElementById('siteCity').value, document.getElementById('sitePostcode').value].filter(Boolean).join(', ') || '-';
+            document.getElementById('reviewCapacity').textContent = document.getElementById('siteCapacity').value ? document.getElementById('siteCapacity').value + ' kWp' : '-';
+            document.getElementById('reviewDate').textContent = document.getElementById('siteDate').value || '-';
+            document.getElementById('reviewType').textContent = document.getElementById('siteType').value || '-';
+            document.getElementById('reviewInverter').textContent = selectedInverter ? platformCredentials[selectedInverter].name : '-';
+            document.getElementById('reviewMeter').textContent = selectedMeter ? platformCredentials[selectedMeter].name : '-';
+            
+            showPage('reviewPage');
+            updateProgressStep(2);
+        }
+
+        function submitSite() {
+            showPage('successPage');
+            updateProgressStep(3);
+            showToast('Site submitted successfully');
+        }
+
+        function addAnotherSite() {
+            // Reset form
+            document.getElementById('siteName').value = '';
+            document.getElementById('siteCapacity').value = '';
+            document.getElementById('siteAddress').value = '';
+            document.getElementById('siteCity').value = '';
+            document.getElementById('sitePostcode').value = '';
+            document.getElementById('siteDate').value = '';
+            document.getElementById('siteType').value = '';
+            document.getElementById('siteYield').value = '';
+            document.getElementById('siteDegradation').value = '';
+            selectedInverter = null;
+            selectedMeter = null;
+            document.querySelectorAll('.platform-chip').forEach(c => c.classList.remove('selected'));
+            document.getElementById('inverterCredentials').style.display = 'none';
+            document.getElementById('meterCredentials').style.display = 'none';
+            
+            showPage('methodPage');
+            updateProgressStep(1);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function updateProgressStep(step) {
+            document.querySelectorAll('.progress-step').forEach((s, i) => {
+                s.classList.remove('active', 'completed');
+                if (i + 1 < step) s.classList.add('completed');
+                if (i + 1 === step) s.classList.add('active');
+            });
+        }
+
+        function selectPlatform(el, type, platform) {
+            const grid = type === 'inverter' ? 'inverterGrid' : 'meterGrid';
+            const credBox = type === 'inverter' ? 'inverterCredentials' : 'meterCredentials';
+            const tabPrefix = type === 'inverter' ? 'inv' : 'mtr';
+            
+            document.querySelectorAll(`#${grid} .platform-chip`).forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            
+            if (type === 'inverter') selectedInverter = platform;
+            else selectedMeter = platform;
+            
+            const config = platformCredentials[platform];
+            const container = document.getElementById(credBox);
+            
+            if (!config || platform === 'none') {
+                container.style.display = 'none';
+                return;
+            }
+            
+            // Build steps HTML
+            let stepsHtml = '';
+            if (config.steps && config.steps.length > 0) {
+                stepsHtml = '<div class="steps-list">';
+                config.steps.forEach((step, i) => {
+                    stepsHtml += `
+                        <div class="step-item">
+                            <div class="step-num">${i + 1}</div>
+                            <div class="step-text">${step}</div>
+                        </div>
+                    `;
+                });
+                stepsHtml += '</div>';
+            }
+            
+            // Build video HTML
+            let videoHtml = '';
+            if (config.videoUrl) {
+                const embedUrl = config.videoUrl.includes('/embed/') ? config.videoUrl : config.videoUrl.replace('/share/', '/embed/');
+                videoHtml = `
+                    <div class="video-embed">
+                        <iframe src="${embedUrl}?hideEmbedTopBar=true" allowfullscreen></iframe>
+                    </div>
+                `;
+            } else {
+                videoHtml = `
+                    <div class="video-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                        <p>Video walkthrough coming soon.<br>Follow the step-by-step guide above.</p>
+                    </div>
+                `;
+            }
+            
+            // Build credentials HTML
+            let credentialsHtml = '';
+            if (config.invite) {
+                const email = config.inviteEmail || '';
+                const note = config.inviteNote || `Please invite <code>${email}</code> as a user on ${config.name}`;
+                credentialsHtml = `
+                    <div class="invite-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <div>
+                            <h4>User Invitation Required</h4>
+                            <p>${note}</p>
+                            ${email ? `<button class="copy-btn" onclick="copyEmail('${email}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy email</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (config.fields && config.fields.length > 0) {
+                credentialsHtml += '<div class="form-grid">';
+                config.fields.forEach((f, i) => {
+                    credentialsHtml += `
+                        <div class="form-group">
+                            <label class="form-label">${f.label}</label>
+                            <input type="${f.type}" class="form-input" placeholder="${f.placeholder}" id="${tabPrefix}_${platform}_${i}">
+                        </div>
+                    `;
+                });
+                credentialsHtml += '</div>';
+            }
+            
+            // Combine into tabbed interface
+            const hasSteps = config.steps && config.steps.length > 0;
+            const hasCredentials = (config.fields && config.fields.length > 0) || config.invite;
+            
+            let html = `
+                <div class="credential-box">
+                    <div class="credential-box-header">
+                        <div class="credential-box-logo">${config.logo || platform.substring(0, 2).toUpperCase()}</div>
+                        <div>
+                            <div class="credential-box-title">${config.name}</div>
+                            <div class="credential-box-subtitle">${config.authType || 'API Credentials'}</div>
+                        </div>
+                    </div>
+                    
+                    ${config.portalUrl ? `
+                        <div class="portal-link-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            <span>Open <a href="${config.portalUrl}" target="_blank">${config.portalUrl}</a> to get started</span>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="credential-tabs">
+                        <button class="credential-tab active" onclick="switchCredTab(this, '${tabPrefix}_steps')">How to get credentials</button>
+                        <button class="credential-tab" onclick="switchCredTab(this, '${tabPrefix}_video')">Watch video</button>
+                        <button class="credential-tab" onclick="switchCredTab(this, '${tabPrefix}_creds')">Enter credentials</button>
+                    </div>
+                    
+                    <div class="credential-panel active" id="${tabPrefix}_steps">
+                        ${stepsHtml || '<p style="color: var(--text-muted);">No steps available for this platform.</p>'}
+                    </div>
+                    
+                    <div class="credential-panel" id="${tabPrefix}_video">
+                        ${videoHtml}
+                    </div>
+                    
+                    <div class="credential-panel" id="${tabPrefix}_creds">
+                        ${credentialsHtml || '<p style="color: var(--text-muted);">No credentials required - invitation will be handled automatically.</p>'}
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            container.style.display = 'block';
+            
+            // Scroll to credential box
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function switchCredTab(btn, panelId) {
+            const box = btn.closest('.credential-box');
+            box.querySelectorAll('.credential-tab').forEach(t => t.classList.remove('active'));
+            box.querySelectorAll('.credential-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(panelId).classList.add('active');
+        }
+        
+        function copyEmail(email) {
+            navigator.clipboard.writeText(email);
+            showToast('Email copied to clipboard');
+        }
+
+        // Toggle collapsible sections
+        function toggleSection(section) {
+            const sectionEl = document.getElementById(section + 'Section');
+            const checkbox = document.getElementById(section + 'Enabled');
+            sectionEl.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        // Array management
+        let arrayCount = 1;
+        function addArray() {
+            arrayCount++;
+            const container = document.getElementById('arraysContainer');
+            const html = `
+                <div class="array-item" data-array="${arrayCount}">
+                    <div class="array-header">
+                        <span class="array-title">Array ${arrayCount}</span>
+                        <button class="remove-btn" onclick="removeArray(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Remove section
+                        </button>
+                    </div>
+                    <div class="array-hint">
+                        <span>Azimuth degrees (0 = North)</span>
+                        <span>Slope degrees (0 = Flat)</span>
+                    </div>
+                    <div class="form-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="form-group">
+                            <label class="form-label">Azimuth</label>
+                            <input type="number" class="form-input" placeholder="e.g. 180" id="array${arrayCount}_azimuth">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Slope</label>
+                            <input type="number" class="form-input" placeholder="e.g. 15" id="array${arrayCount}_slope">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Capacity (kW)</label>
+                            <input type="number" class="form-input" placeholder="e.g. 50" id="array${arrayCount}_capacity" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+            updateArrayNumbers();
+        }
+
+        function removeArray(btn) {
+            btn.closest('.array-item').remove();
+            updateArrayNumbers();
+        }
+
+        function updateArrayNumbers() {
+            const items = document.querySelectorAll('.array-item');
+            items.forEach((item, i) => {
+                item.querySelector('.array-title').textContent = `Array ${i + 1}`;
+                if (items.length > 1) {
+                    item.querySelector('.remove-btn').style.display = 'inline-flex';
+                } else {
+                    item.querySelector('.remove-btn').style.display = 'none';
+                }
+            });
+        }
+
+        // Price row management
+        let priceCounters = { export: 1, import: 1, fit: 1 };
+        function addPriceRow(type) {
+            priceCounters[type]++;
+            const container = document.getElementById(type + 'PricesContainer');
+            const num = priceCounters[type];
+            const html = `
+                <div class="price-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Price (£/kWh)</label>
+                        <input type="number" class="form-input" placeholder="£" step="0.001" id="${type}_price_${num}">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Date started</label>
+                        <input type="date" class="form-input" id="${type}_date_${num}">
+                    </div>
+                    <button class="remove-price-btn" onclick="this.parentElement.remove()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
